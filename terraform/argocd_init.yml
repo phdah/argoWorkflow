@@ -1,17 +1,21 @@
 server:
   additionalApplications:
-   - name: cluster-config
+   - name: argocd-test
      namespace: argocd
      project: default
      source:
        repoURL: https://github.com/phdah/argoWorkflow.git
        targetRevision: HEAD
        path: app
-       directory:
-         recurse: true
+
      destination:
-       server: https://kubernetes.default.svc
+         server: https://kubernetes.default.svc
+         namespace: argocd
+
      syncPolicy:
+       syncOptions:
+       - CreateNamespace=true
+
        automated:
          prune: false
          selfHeal: false
