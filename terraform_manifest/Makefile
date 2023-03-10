@@ -1,6 +1,6 @@
 install:
 	# Fetch the latest Argo CD install
-	curl https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml > ${HOME}/repos/privat/argoWorkflow/app/argocd.yml
+	curl https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml > ../app/argocd.yml # Fetch latest stable Argo CD install
 	# Terraform run
 	terraform init
 	terraform plan
