@@ -4,6 +4,12 @@ install:
 	terraform plan
 	terraform apply
 
+start:
+	source ../maintenance/argo_cd_ui.sh # Run maintenance script to start
+
+stop:
+	pkill -f "port-forward" # Kill port forward running in background
+
 clean:
 	terraform destroy # Destroy Terraform
 	rm -rf terraform.* .terraform* # Remove all Terraform created files

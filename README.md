@@ -40,23 +40,29 @@ This method requires *Argo CD* of version `<5.0.0`.
 ### Install for Minikube, without Terraform
 Following [installation guide](https://argo-cd.readthedocs.io/en/stable/getting_started/#1-install-argo-cd)
 
-Set up a Argo k8s cluster, then install Argo CD by
+Using the present manifest files
+* k8s cluster
+* Argo CD, from [official manifest](https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml)
+* Load a `application.yml` to initialize the CD
+
+Run the following
 ```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+cd manual_install
+make install
 ```
 
 ## Using and interacting with Argo CD
 
 ### Argo CD UI
-Port forward the service to view the UI
+Once the pods are up and running, port forward the Argo CD service and fetch admin credentials to access the UI.
+
+Run the following to start service
 ```bash
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+make start
 ```
-The login is
+To stop the service, run
 ```bash
-admin # Username
-kubectl get secrets argocd-initial-admin-secret -n argocd -o yaml | rg password | cut -d" " -f4 | base64 -d # Password
+make stop
 ```
 
 ### Rolling back Argo CD

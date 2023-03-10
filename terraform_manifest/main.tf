@@ -51,7 +51,7 @@ resource "kubectl_manifest" "namespace" {
     depends_on = [
       kind_cluster.argo_test,
     ]
-    yaml_body = file("../app/namespace.yml")
+    yaml_body = file("namespace.yml")
 }
 
 data "kubectl_file_documents" "argocd" {
