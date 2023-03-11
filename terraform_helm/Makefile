@@ -6,6 +6,7 @@ install:
 
 start:
 	source ../maintenance/argo_cd_ui.sh # Run maintenance script to start
+	source ../maintenance/argo_workflow_ui.sh # Run maintenance script to start
 
 stop:
 	pkill -f "port-forward" # Kill port forward running in background

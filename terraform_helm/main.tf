@@ -8,6 +8,10 @@ terraform {
             source = "hashicorp/helm"
                 version = "2.9.0"
         }
+        kubectl = {
+            source  = "gavinbunney/kubectl"
+                version = "1.14.0"
+        }
     }
 }
 
@@ -60,4 +64,24 @@ resource "helm_release" "argocd" {
         values = [
         file("argocd_init.yml")
         ]
+}
+
+provider "kubectl" {
+        host                    = "${kind_cluster.argo_test.endpoint}"
+        cluster_ca_certificate  = "${kind_cluster.argo_test.cluster_ca_certificate}"
+        client_certificate      = "${kind_cluster.argo_test.client_certificate}"
+        client_key              = "${kind_cluster.argo_test.client_key}"
+        load_config_file        = false
+}
+
+resource "kubectl_manifest" "namespace" {
+    depends_on = [
+      helm_release.argocd,
+    ]
+    yaml_body = <<YAML
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argo
+YAML
 }

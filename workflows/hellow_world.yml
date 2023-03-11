@@ -1,6 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
+# Issue with generateName in Argo CD: https://github.com/argoproj/argo-cd/issues/1639
   name: hello-world
   labels:
     workflows.argoproj.io/archive-strategy: "false"

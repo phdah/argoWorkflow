@@ -47,11 +47,16 @@ provider "kubectl" {
         load_config_file        = false
 }
 
+data "kubectl_file_documents" "namespace" {
+    content = file("namespace.yml")
+}
+
 resource "kubectl_manifest" "namespace" {
     depends_on = [
       kind_cluster.argo_test,
     ]
-    yaml_body = file("namespace.yml")
+    count = length(data.kubectl_file_documents.namespace.documents)
+    yaml_body = element(data.kubectl_file_documents.namespace.documents, count.index)
 }
 
 data "kubectl_file_documents" "argocd" {
