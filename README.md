@@ -3,11 +3,11 @@ Fully automated setup for local functioning Argo CI/CD. It is done by
 * setting up `Kind` k8s cluster
 * installing Argo CD
 
-Then Argo CD installs and maintaine all other applications specified in the `app/application.yml` file. Here both other infra apps, such as Argo itself, and non-infra apps are defined.
+Then Argo CD installs and maintain all other applications specified in the `app/application.yml` file. Here both other infra apps, such as Argo itself, and non-infra apps are defined.
 
 Everything is setup to be done with `make` for an easy and idempotent interaction.
 
-#### Usefull links
+#### Useful links
 Argo Workflow: [installation guide](https://argoproj.github.io/argo-workflows/quick-start/)
 
 ## Installation
@@ -90,4 +90,4 @@ To clean up the k8s cluster and all created resources and files, just run
 ```bash
 make clean
 ```
-inside of the choosen installadion method's directory.
+inside of the chosen installation method's directory.
