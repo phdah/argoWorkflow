@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/phdah/argoWorkflow.git
     targetRevision: HEAD
-    path: app/application.yml
+    path: app
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
