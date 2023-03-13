@@ -38,6 +38,7 @@ spec:
     path: app/argo/argocd
   destination:
     server: https://kubernetes.default.svc
+    namespace: argocd
 
   syncPolicy:
     syncOptions:
@@ -52,7 +53,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argo-workflow
-  namespace: argo
+  namespace: argocd
 spec:
   project: default
 
@@ -64,6 +65,7 @@ spec:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
+    namespace: argo
 
   syncPolicy:
     syncOptions:
@@ -78,7 +80,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argo-events
-  namespace: argo-events
+  namespace: argocd
 spec:
   project: default
 
@@ -90,6 +92,7 @@ spec:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
+    namespace: argo-events
 
   syncPolicy:
     syncOptions:
