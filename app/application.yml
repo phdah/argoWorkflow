@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-application
+  name: argo-application
   namespace: argocd
 spec:
   project: default
@@ -23,11 +23,11 @@ spec:
       selfHeal: true
       prune: true
 ---
-# Setup all Argo Workflows
+# Setup all Argo CD
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-infrastructure
+  name: argo-cd
   namespace: argocd
 spec:
   project: default
@@ -35,14 +35,66 @@ spec:
   source:
     repoURL: https://github.com/phdah/argoWorkflow.git
     targetRevision: HEAD
-    path: app/argo
-    directory:
-      recurse: true
-      include: '*.yml' # Note that we use yml and NOT yaml extension
+    path: app/argo/argocd
   destination:
     server: https://kubernetes.default.svc
 
   syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
+---
+# Setup all Argo Workflows
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflow
+  namespace: argo
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/phdah/argoWorkflow.git
+    targetRevision: HEAD
+    path: app/argo/argoworkflow
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
+---
+# Setup all Argo Events
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-events
+  namespace: argo-events
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/phdah/argoWorkflow.git
+    targetRevision: HEAD
+    path: app/argo/argoevents
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
     automated:
       selfHeal: true
       prune: true
