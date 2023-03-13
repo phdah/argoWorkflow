@@ -9,7 +9,7 @@ spec:
   dependencies:
   - name: payload
     eventSourceName: webhook
-    eventName: devops-toolkit
+    eventName: example
   triggers:
   - template:
       name: payload

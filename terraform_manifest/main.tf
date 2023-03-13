@@ -60,7 +60,7 @@ resource "kubectl_manifest" "namespace" {
 }
 
 data "kubectl_file_documents" "argocd" {
-    content = file("../app/argocd.yml")
+    content = file("../app/argo/argocd/argocd.yml")
 }
 
 resource "kubectl_manifest" "argocd" {
@@ -83,5 +83,4 @@ resource "kubectl_manifest" "application" {
     ]
     count = length(data.kubectl_file_documents.application.documents)
     yaml_body = element(data.kubectl_file_documents.application.documents, count.index)
-    override_namespace = "argocd"
 }

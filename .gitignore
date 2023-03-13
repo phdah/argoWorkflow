@@ -1,6 +1,5 @@
 .terraform.lock.hcl
 .terraform/
 argo-test-config
-argocd.yml
 terraform.tfstate
 terraform.tfstate.backup

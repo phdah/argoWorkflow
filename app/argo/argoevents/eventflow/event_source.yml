@@ -11,5 +11,5 @@ spec:
   webhook:
     devops-toolkit:
       port: "12000"
-      endpoint: /devops-toolkit
+      endpoint: /example
       method: POST
