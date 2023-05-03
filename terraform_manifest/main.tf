@@ -84,3 +84,23 @@ resource "kubectl_manifest" "application" {
     count = length(data.kubectl_file_documents.application.documents)
     yaml_body = element(data.kubectl_file_documents.application.documents, count.index)
 }
+
+# TODO: Setup Argo in the prod cluster.
+resource "kind_cluster" "argo_prod" {
+    name = "argo-prod"
+        wait_for_ready = true
+        node_image = "kindest/node:v1.26.0"
+        kind_config {
+            kind = "Cluster"
+                api_version = "kind.x-k8s.io/v1alpha4"
+
+            node {
+                role = "control-plane"
+            }
+
+            node {
+                role = "worker"
+            }
+
+        }
+}

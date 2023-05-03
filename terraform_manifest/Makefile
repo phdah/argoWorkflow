@@ -1,8 +1,7 @@
 install:
 	# Terraform run
 	terraform init
-	terraform plan
-	terraform apply
+	terraform apply -auto-approve
 
 start:
 	source ../maintenance/argo_cd_ui.sh # Run maintenance script to start
@@ -16,4 +15,5 @@ clean:
 	terraform destroy # Destroy Terraform
 	rm -rf terraform.* .terraform* # Remove all Terraform created files
 	kind delete cluster --name argo-test # Remove the k8s cluster created
-	rm argo-test-config # Remove the config file that "kind" creates
+	kind delete cluster --name argo-prod # Remove the k8s cluster created
+	rm argo-test-config argo-prod-config # Remove the config file that "kind" creates

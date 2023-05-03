@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-application
+  name: argo-internal-application
   namespace: argocd
 spec:
   project: default
@@ -102,22 +102,24 @@ spec:
       selfHeal: true
       prune: true
 ---
-# Application setup
+# Setup all external applications
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: web-service-test
+  name: argo-external-applications
   namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/phdah/kubernetesDemoApp.git
+    repoURL: https://github.com/phdah/argoWorkflow.git
     targetRevision: HEAD
-    path: app
+    path: app/apps
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: application
+    namespace: argocd
 
   syncPolicy:
     syncOptions:
