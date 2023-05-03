@@ -9,9 +9,17 @@ Everything is setup to be done with `make` for an easy and idempotent interactio
 
 #### Useful links
 Argo Workflow: [installation guide](https://argoproj.github.io/argo-workflows/quick-start/)
+
 Argo Events [working example](https://gist.github.com/vfarcic/a0a7ff04a7e22409cdfd8b466edb4e48)
 
 ## Installation
+### Prerequisite
+```
+kind (0.17.0)
+kubectl (1.26.2-1)
+make (4.4.1)
+terraform (v1.4.0) -- Only for Terraform install
+```
 
 ### Install for Kind, using manifest files and Terraform
 Following this [blog post](https://betterprogramming.pub/how-to-set-up-argo-cd-with-terraform-to-implement-pure-gitops-d5a1d797926a) and his [repo](https://github.com/bharatmicrosystems/argo-cd-example/blob/main/terraform/main.tf)
@@ -80,3 +88,8 @@ The Argo infra is using a automatic sync approach, i.e., sync every three minute
 <img src="https://argoproj.github.io/argo-events/assets/argo-events-architecture.png" alt="" style="height: 200px; width: auto;"/>
 
 Events are written to the Event Bus, which are then picked up by the Sensor which triggers the Workflow and does potential tests etc, and finished by deploying to prod env.
+
+---
+
+### TODO:
+Setup deployment/CD to be triggered by event: [potential guide](https://www.atlantbh.com/implementing-ci-cd-pipeline-using-argo-workflows-and-argo-events/)
